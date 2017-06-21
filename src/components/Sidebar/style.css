@@ -1,0 +1,8 @@
+.sidebar_link{
+	color: #3172ce;
+	text-decoration: none;
+}
+
+.sidebar_link:hover{
+	text-decoration: underline;
+}
