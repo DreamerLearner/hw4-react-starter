@@ -3,3 +3,17 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.taskComplete, .taskIncomplete{
+	padding: 10px 0;
+	cursor: pointer;
+}
+
+.taskComplete{
+	color: green;
+	text-decoration: line-through;
+}
+
+.taskIncomplete{
+	color: red;
+}

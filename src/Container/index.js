@@ -29,8 +29,18 @@ PlayerInfoBox.propTypes = {
   children: PropTypes.object.isRequired,
 }
 
+const SettingPgBox =  props =>
+  <s.SettingPgBox>
+    {props.children}
+  </s.SettingPgBox>
+
+SettingPgBox.propTypes = {
+  children: PropTypes.array.isRequired,
+}
+
 export default {
   Container,
   Sidebar,
   PlayerInfoBox,
+  SettingPgBox
 };

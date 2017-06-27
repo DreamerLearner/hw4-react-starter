@@ -8,7 +8,6 @@ class Lobby extends Component{
 	render(){
 
 		const { players } = this.props.settings;
-		console.log(players);
 
 		const playersView = players.map( player => <Playerinfo key={player.id} data={player} /> );
 

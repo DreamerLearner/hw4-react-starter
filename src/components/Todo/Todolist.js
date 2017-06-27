@@ -1,12 +1,16 @@
 import React, { PureComponent } from 'react';
 
 class Todolist extends PureComponent{
+
 	render(){
-		console.log('ssdsdsd');
-		console.log(this.props.data);
+
+		const { id, isCompleted, task, playerId }  = this.props.todo;
+		const markTodo = this.props.markTodo;
+		const taskClass = isCompleted ? 'taskComplete' : 'taskIncomplete';
+
 		return(
-			<div>
-				lists
+			<div className={taskClass} onClick={()=>this.props.onClick(id)} >
+				{task}
 			</div>
 		);
 	}

@@ -1,27 +1,48 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { markTodo,  onTodoSubmit, onSettingsSubmit } from '../../actions';
+
 import Todolist from './Todolist';
+import AddTodo from './AddTodo';
 
 class Todo extends Component{
 
 	render(){
-		const playerNames = [];
-		this.props.players.map( player => playerNames.push(player.name) );
+		
+		const { todos } = this.props;
+		const players = this.props.players.players;
 
-		const playerWiseTodo = [];
-		playerNames.map( player => {
-			playerWiseTodo.push(this.props.todos.filter( todo => todo.name === player ));
-		});		
+		let playerIdArr = [];
+		players.map( player => playerIdArr.push(player.id));
 
-		const todoListHtml = playerWiseTodo.map( playerTodo => {
-			playerTodo.map( (todo,index) => <Todolist key={index} data={todo} /> );
+		let player1Todo = [];
+		let player2Todo = [];
+		
+		todos.map( todo => {
+			if(todo.playerId === playerIdArr[0]){
+				player1Todo.push(todo);
+			}else{
+				player2Todo.push(todo);
+			}
 		});
+
+		const player1TodoHtml = player1Todo.map( todo => <Todolist key={todo.id} todo={todo} onClick={this.props.markTodo} /> );
+		const player2TodoHtml = player2Todo.map( todo => <Todolist key={todo.id} todo={todo} onClick={this.props.markTodo} /> );
 
 		return(
 			<div>
 				<h3>Todo Page</h3>		
-				{todoListHtml}
+				<div>
+					<p>{players[0].name}</p>
+					<AddTodo player={players[0].id} onTodoSubmit={this.props.onTodoSubmit} />
+					{player1TodoHtml}
+				</div>
+				<div>
+					<p>{players[1].name}</p>
+					<AddTodo player={players[1].id} onTodoSubmit={this.props.onTodoSubmit} />
+					{player2TodoHtml}
+				</div>
 			</div>
 		);
 	}
@@ -31,8 +52,8 @@ class Todo extends Component{
 const selected = state => {
 	return { 
 		todos: state.todo,
-		players: state.settings.players
+		players: state.settings
 	}
 }
 
-export default connect(selected)(Todo);
+export default connect(selected,{markTodo, onTodoSubmit, onSettingsSubmit})(Todo);
