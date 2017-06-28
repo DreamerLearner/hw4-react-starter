@@ -21,8 +21,22 @@ const onSettingsSubmit = (formObj = []) => {
   }
 }
 
+const onDelete = todoId => {
+  return{
+    type: types.DELETE_TODO,
+    payload: todoId
+  }
+}
+
+const markCell = cellId => ({
+  type: types.MARK_CELL,
+  payload: cellId,
+});
+
 export {
   markTodo,
   onTodoSubmit,
-  onSettingsSubmit
+  onSettingsSubmit,
+  onDelete,
+  markCell
 };

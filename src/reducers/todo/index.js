@@ -5,8 +5,6 @@ const settingsState = settings(undefined, {});
 const playerIdArr = [];
 settingsState.players.map( setting => playerIdArr.push(setting.id));
 
-console.log('playerIdArr-----',playerIdArr);
-
 const initialState = [
   { id: 1234 , playerId : playerIdArr[0], task: 'task 1', isCompleted: true },
   { id: 1235 , playerId : playerIdArr[0], task: 'task 2', isCompleted: false },
@@ -31,39 +29,36 @@ const todoItemReducer = (state = {}, action ) => {
         return state;
       };
       return { ...state, isCompleted: !state.isCompleted };
-    /*case types.ADD_PLAYERS:
-      return state;*/
+    case types.ADD_PLAYERS:
+        return { ...state, playerId: action.payload.playerNewId };
     default:
       return state;
   }
 }
 
-const playerTodoReducer = ( state = {}, action ) => {
-  switch(action.type){
-    case types.MARK_TODO:
-      return state;
-    default:
-      return state;
-  }  
-}
-
 export default function(state = initialState, action) {
   switch (action.type) {
-    /*case types.ADD_PLAYERS: {
+    case types.ADD_PLAYERS: {
+
         const settingsNewState = settings(undefined, {});
         const playerNewIdArr = [];
         settingsNewState.players.map( setting => playerNewIdArr.push(setting.id));
 
-        const newState = state.map((todo,index) => {
-          action.payload.playerNewIdArr = playerNewIdArr[index];
-          todoItemReducer(todo, action)
+        return state.map( todo => {
+          if( todo.playerId === playerIdArr[0] ){
+            action.payload.playerNewId = playerNewIdArr[0];
+          }else{
+            action.payload.playerNewId = playerNewIdArr[1];
+          }
+          return todoItemReducer(todo, action);
         });
-      } 
-      return state;*/
+      }
     case types.CREATE_TODO :
       return [ ...state, todoItemReducer(undefined,action) ];
     case types.MARK_TODO:
       return state.map(todo => todoItemReducer(todo, action));
+    case types.DELETE_TODO:
+      return state.filter( todo => todo.id !== action.payload );
     default:
       return state;
   }

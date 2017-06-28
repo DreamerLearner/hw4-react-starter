@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { markTodo,  onTodoSubmit, onSettingsSubmit } from '../../actions';
+import { markTodo,  onTodoSubmit, onDelete } from '../../actions';
 
 import Todolist from './Todolist';
 import AddTodo from './AddTodo';
@@ -27,8 +27,8 @@ class Todo extends Component{
 			}
 		});
 
-		const player1TodoHtml = player1Todo.map( todo => <Todolist key={todo.id} todo={todo} onClick={this.props.markTodo} /> );
-		const player2TodoHtml = player2Todo.map( todo => <Todolist key={todo.id} todo={todo} onClick={this.props.markTodo} /> );
+		const player1TodoHtml = player1Todo.map( todo => <Todolist key={todo.id} todo={todo} onClick={this.props.markTodo} onDelete={this.props.onDelete} /> );
+		const player2TodoHtml = player2Todo.map( todo => <Todolist key={todo.id} todo={todo} onClick={this.props.markTodo} onDelete={this.props.onDelete} /> );
 
 		return(
 			<div>
@@ -56,4 +56,4 @@ const selected = state => {
 	}
 }
 
-export default connect(selected,{markTodo, onTodoSubmit, onSettingsSubmit})(Todo);
+export default connect(selected,{markTodo, onTodoSubmit, onDelete})(Todo);

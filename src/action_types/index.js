@@ -2,6 +2,8 @@ const types = {
   MARK_TODO: 'MARK_TODO',
   CREATE_TODO: 'CREATE_TODO',
   ADD_PLAYERS: 'ADD_PLAYERS',
+  DELETE_TODO: 'DELETE_TODO',
+  MARK_CELL: 'MARK_CELL'
 };
 
 export default types;

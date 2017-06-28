@@ -2,8 +2,8 @@ import types from '../../action_types';
 
 const initialState = {
   players : [
-  	{id: 12345 , name: 'Player 1', bio: 'Hi, I am from Mumbai.', city: 'Mumbai'},
-  	{id: 56789 , name: 'Player 2', bio: 'Hi, I like games.', city: 'Delhi'},
+  	{id: 12345 , name: 'P1', bio: 'Hi, I am from Mumbai.', city: 'Mumbai'},
+  	{id: 56789 , name: 'P2', bio: 'Hi, I like games.', city: 'Delhi'},
   ]
 };
 
@@ -18,13 +18,13 @@ const playerReducer = (state = {}, action ) => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-  	case types.ADD_PLAYERS:
-
+  	case types.ADD_PLAYERS:{
   		state.players = [];
   		action.payload.map( player => {
-			state.players.push(playerReducer(player, action))	
-		});
-  		return state;
+  			state.players.push(playerReducer(player, action))	
+  		});
+      return state;
+    }
     default:
       return state;
   }

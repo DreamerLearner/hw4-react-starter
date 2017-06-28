@@ -4,13 +4,13 @@ class Todolist extends PureComponent{
 
 	render(){
 
-		const { id, isCompleted, task, playerId }  = this.props.todo;
-		const markTodo = this.props.markTodo;
+		const { id, isCompleted, task }  = this.props.todo;
 		const taskClass = isCompleted ? 'taskComplete' : 'taskIncomplete';
 
 		return(
-			<div className={taskClass} onClick={()=>this.props.onClick(id)} >
-				{task}
+			<div>
+				<span className={taskClass} onClick={()=>this.props.onClick(id)}>{task}</span>
+				<button onClick={()=>this.props.onDelete(id)}>Delete</button>
 			</div>
 		);
 	}

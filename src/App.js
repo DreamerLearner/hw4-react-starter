@@ -7,6 +7,7 @@ import Sidebar from './components/Sidebar';
 import Settings from './components/Settings';
 import Lobby from './components/Lobby';
 import Todo from './components/Todo';
+import TicTacToe from './components/TicTacToe';
 import store from './store';
 
 const App = () =>
@@ -16,7 +17,7 @@ const App = () =>
         <Sidebar />
         <Switch>
           <Route path="/" exact component={Lobby} />
-          <Route path="/game" exact component={() => <h1>Tic Tic Toe</h1>} />
+          <Route path="/game" exact component={TicTacToe} />
           <Route path="/todo" exact component={Todo} />
           <Route path="/settings" exact component={Settings} />
           <Route component={() => <h1>Not found</h1>} />
