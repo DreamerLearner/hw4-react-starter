@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import Playerinfo from './Playerinfo';
 
 class Lobby extends Component{

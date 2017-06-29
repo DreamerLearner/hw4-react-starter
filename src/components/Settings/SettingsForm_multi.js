@@ -9,16 +9,64 @@ class SettingsForm extends PureComponent{
 	constructor(props){
 		super(props);
 		this.onSubmit = this.onSubmit.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.multiselectTemplate = this.multiselectTemplate.bind(this);
+
+    this.state = {
+      options: this.getOpts(),
+      value: [],
+    }
 	}
 
 	render(){
 
     const Form = t.form.Form;
 
+    const city = t.enums.of([
+      'Ahmednagar',
+      'Akola',
+      'Amravati',
+      'Aurangabad',
+      'Beed',
+      'Bhandara',
+      'Buldhana',
+      'Chandrapur',
+      'Dhule',
+      'Gadchiroli',
+      'Gondiya',
+      'Hingoli',
+      'Jalgaon',
+      'Jalna',
+      'Kolhapur',
+      'Latur',
+      'Malegaon',
+      'Mumbai',
+      'Nagpur',
+      'Nanded',
+      'Nandurbar',
+      'Nashik',
+      'Oras',
+      'Osmanabad',
+      'Parbhani',
+      'Pune',
+      'Raigad',
+      'Ratnagiri',
+      'Sangli',
+      'Satara',
+      'Sewagram',
+      'Solapur',
+      'Wardha',
+      'Washim',
+      'Yavatmal'
+    ], 'city');
+
     const options = {
       auto: 'none',
-      order: ['name1','bio1','city1','name2','bio2','city2'],
+      order: ['city','name1','bio1','city1','name2','bio2','city2'],
       fields: {
+        city:{
+          template: this.multiselectTemplate,
+        },
         name1:{
           label:'Name',
           attrs:{
@@ -72,6 +120,7 @@ class SettingsForm extends PureComponent{
       bio2: t.String,
       city1: t.String,
       city2: t.String,
+      city: city,
     });
 
     return(
@@ -99,6 +148,35 @@ class SettingsForm extends PureComponent{
 		}
 
 	}
+
+  handleSelectChange (value) {
+    // console.log('You\'ve selected:', value);
+    this.setState({ value });
+  }
+
+  getOpts(locals){
+
+    const multiOpts = [];
+    if(locals){
+          locals.options.map( local => {
+              multiOpts.push({'value':local.value,'label':local.text});
+          });
+    }
+
+    return multiOpts;
+  }
+
+  multiselectTemplate(locals) {
+    return (
+        <Select
+          ref="city" 
+          multi
+          simpleValue
+          value={this.state.value}
+          options={this.getOpts(locals)}
+          onChange={this.handleSelectChange} />
+    );
+  }
 
 }
 

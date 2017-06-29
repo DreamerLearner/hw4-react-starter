@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { onSettingsSubmit } from '../../actions';
+import { onSettingsSubmit, lookupData } from '../../actions';
 // import PlayerInfoForm from './PlayerInfoForm';
 import SettingsForm from './SettingsForm';
+// import SettingsForm from './SettingsForm_multi';
 
 class Settings extends Component{
+
+	componentDidMount(){
+		const lookupData = this.props.lookupData();
+		console.log('LOOKUPDATA--------->',lookupData);		
+	}
 
 	render(){
 		return(
@@ -16,10 +22,12 @@ class Settings extends Component{
 		);
 	}
 
+	
+
 }
 
 const selected = state => {
 	return { players: state.settings.players }
 }
 
-export default connect(selected,{onSettingsSubmit})(Settings);
+export default connect(selected,{onSettingsSubmit,lookupData})(Settings);
