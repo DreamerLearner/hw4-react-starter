@@ -20,6 +20,7 @@ const App = () =>
           <Route path="/game" exact component={TicTacToe} />
           <Route path="/todo" exact component={Todo} />
           <Route path="/settings" exact component={Settings} />
+          <Route path="/settings/multiselect" exact component={Settings} />
           <Route component={() => <h1>Not found</h1>} />
         </Switch>
       </s.Container>

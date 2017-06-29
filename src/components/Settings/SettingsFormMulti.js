@@ -4,7 +4,7 @@ import s from '../../Container';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-class SettingsForm extends PureComponent{
+class SettingsFormMulti extends PureComponent{
 
 	constructor(props){
 		super(props);
@@ -181,4 +181,4 @@ class SettingsForm extends PureComponent{
 }
 
 
-export default SettingsForm;
+export default SettingsFormMulti;

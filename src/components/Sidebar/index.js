@@ -41,6 +41,9 @@ class Sidebar extends PureComponent{
 				<Link className="sidebar_link" to={'/settings'}>Settings</Link>
 				<br />
 				<br />
+				<Link className="sidebar_link" to={'/settings/multiselect'}>Settings Multiselect</Link>
+				<br />
+				<br />
 			</s.Sidebar>
 		);
 	}

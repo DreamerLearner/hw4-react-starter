@@ -13,6 +13,34 @@ class SettingsForm extends PureComponent{
 
 	render(){
 
+    let cityList = '';
+    let stateList = '';
+    const countryList = this.props.countryList;
+
+    Object.values(this.props.countryList).find( eachCountry => {
+      if(eachCountry.display_value === 'India'){
+        stateList = eachCountry.list;
+        eachCountry.list.find( state => {
+          if( state.display_value === 'Maharashtra' ){
+           cityList = state.list;
+          }
+        })
+      }
+    });
+
+    let MHcities;
+    if( cityList ){
+      let cityTemp = [];
+      cityList.map( city => cityTemp.push(city.display_value));
+      MHcities = t.enums.of(cityTemp,'MHcities');
+    }
+
+    // console.log('STATELIST',stateList);
+    let INDstates;
+    if(stateList){
+      let stateTemp = [];
+    }
+    
     const Form = t.form.Form;
 
     const options = {
@@ -53,34 +81,53 @@ class SettingsForm extends PureComponent{
           attrs:{
             placeholder: 'Please select your city',
             className: 'form_ele',
-          }
+          },
+          factory: t.struct.Select,
+          nullOption: {value: 'Select city', text: 'Select city'},
         },
         city2:{
           label:'City',
           attrs:{
             placeholder: 'Please select your city',
             className: 'form_ele',
-          }   
+          },
+          factory: t.struct.Select,
+          nullOption: {value: 'Select city', text: 'Select city'},  
         },
       }
     }
 
-    const BasicSearch = t.struct({
+    const User1Form = t.struct({
       name1: t.String,
-      name2: t.String,
       bio1: t.String,
+      city1: (MHcities ? MHcities : t.String),
+    });
+
+    const User2Form = t.struct({
+      name2: t.String,
       bio2: t.String,
-      city1: t.String,
-      city2: t.String,
+      city2: (MHcities ? MHcities : t.String),
     });
 
     return(
 			<div>
+        <br /><br />
+        <p>User 1 Data</p>
 				<Form
-				  ref="form"
+				  ref="form1"
 				  options={options}
-				  type={BasicSearch}
+				  type={User1Form}
 				/>
+        <br /><br />
+        <p>User 2 Data</p>
+        <Form
+          ref="form2"
+          options={options}
+          type={User2Form}
+        />
+
+        <br /><br />
+        
 				<button onClick={this.onSubmit}>Submit</button>
 			</div>
 		);
@@ -88,10 +135,11 @@ class SettingsForm extends PureComponent{
 
 	onSubmit(e){
 		e.preventDefault();
-		const value = this.refs.form.getValue();
+    const value1 = this.refs.form1.getValue();
+		const value2 = this.refs.form2.getValue();
 
-		if(value){		
-			const formObj = [{'name':value.name1, 'bio':value.bio1, 'city':value.city1}, {'name':value.name2, 'bio':value.bio2, 'city':value.city2}];
+		if(value1 && value2){		
+			const formObj = [{'name':value1.name1, 'bio':value1.bio1, 'city':value1.city1}, {'name':value2.name2, 'bio':value2.bio2, 'city':value2.city2}];
 			this.props.onSettingsSubmit(formObj);
 			this.setState({});
 		}else{
@@ -99,6 +147,20 @@ class SettingsForm extends PureComponent{
 		}
 
 	}
+
+  getCityList(){
+    Object.values(this.props.countryList).find( eachCountry => {
+      if(eachCountry.display_value === 'India'){
+        eachCountry.list.find( state => {
+          if( state.display_value === 'Maharashtra' ){
+            const cityLists = state.list;
+
+            return cityLists;
+          }
+        })
+      }
+    });
+  }
 
 }
 
