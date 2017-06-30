@@ -1,28 +1,24 @@
 import React, { PureComponent } from 'react';
 import t from 'tcomb-form';
-import s from '../../Container';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 
 class SettingsForm extends PureComponent{
 
 	constructor(props){
 		super(props);
-		this.onSubmit = this.onSubmit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+		this.onChange = this.onChange.bind(this);
 	}
 
 	render(){
 
     let cityList = '';
-    let stateList = '';
-    const countryList = this.props.countryList;
 
     Object.values(this.props.countryList).find( eachCountry => {
       if(eachCountry.display_value === 'India'){
-        stateList = eachCountry.list;
         eachCountry.list.find( state => {
           if( state.display_value === 'Maharashtra' ){
            cityList = state.list;
+           return cityList;
           }
         })
       }
@@ -33,12 +29,6 @@ class SettingsForm extends PureComponent{
       let cityTemp = [];
       cityList.map( city => cityTemp.push(city.display_value));
       MHcities = t.enums.of(cityTemp,'MHcities');
-    }
-
-    // console.log('STATELIST',stateList);
-    let INDstates;
-    if(stateList){
-      let stateTemp = [];
     }
     
     const Form = t.form.Form;
@@ -141,12 +131,24 @@ class SettingsForm extends PureComponent{
 		if(value1 && value2){		
 			const formObj = [{'name':value1.name1, 'bio':value1.bio1, 'city':value1.city1}, {'name':value2.name2, 'bio':value2.bio2, 'city':value2.city2}];
 			this.props.onSettingsSubmit(formObj);
-			this.setState({});
+			this.resetForm();
 		}else{
-			alert('Form Incomplete');
+      alert("Form Incomplete")
+   //    document.write(this.refs.form1.validate());
+			// document.write(this.refs.form2.validate());
 		}
 
 	}
+
+  resetForm(){
+    this.setState({});
+  }
+
+  onChange(value, path) {
+    // validate a field on every change
+    const validate1 = this.refs.form1.getComponent(path).validate();
+    console.log(validate1);
+  }
 
   getCityList(){
     Object.values(this.props.countryList).find( eachCountry => {
@@ -154,7 +156,6 @@ class SettingsForm extends PureComponent{
         eachCountry.list.find( state => {
           if( state.display_value === 'Maharashtra' ){
             const cityLists = state.list;
-
             return cityLists;
           }
         })

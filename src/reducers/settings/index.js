@@ -18,13 +18,13 @@ const playerReducer = (state = {}, action ) => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-  	case types.ADD_PLAYERS:{
-  		state.players = [];
-  		action.payload.map( player => {
-  			state.players.push(playerReducer(player, action))	
-  		});
+  	case types.ADD_PLAYERS:
+		state.players = [];
+		action.payload.map( player => {
+			state.players.push(playerReducer(player, action));
       return state;
-    }
+		});
+    return state;
     default:
       return state;
   }

@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import t from 'tcomb-form';
-import s from '../../Container';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -160,9 +159,9 @@ class SettingsFormMulti extends PureComponent{
     if(locals){
           locals.options.map( local => {
               multiOpts.push({'value':local.value,'label':local.text});
+              return multiOpts;
           });
     }
-
     return multiOpts;
   }
 

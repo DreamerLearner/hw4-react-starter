@@ -19,7 +19,7 @@ class Todo extends Component{
 		let player1Todo = [];
 		let player2Todo = [];
 		
-		todos.map( todo => {
+		todos.map( todo => { 
 			if(todo.playerId === playerIdArr[0]){
 				player1Todo.push(todo);
 			}else{

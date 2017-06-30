@@ -36,8 +36,9 @@ const cellMarker = (state = {}, action) => {
   switch (action.type) {
     case types.MARK_CELL:
       if (state.cellid === action.payload && state.cellValue === '') {
-        return { ...state, cellValue: action.activeGameMarker };
+        return { ...state, cellValue: action.activeGameMarker }
       }
+    return state;
     default:
       return state;
   }
@@ -49,6 +50,7 @@ export default function(state = initialState, action){
       let activeGameMarker = '';
       state.players.find(player => {
         if (player.isActive) activeGameMarker = player.gameMarker;
+        return activeGameMarker;
       });
       action.activeGameMarker = activeGameMarker;
 
