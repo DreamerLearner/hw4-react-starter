@@ -4,7 +4,7 @@ import settings from '../settings';
 
 const settingsState = settings(undefined, {});
 const playerIdArr = [];
-settingsState.players.map( setting => playerIdArr.push({id: setting.id,name:setting.name}));
+settingsState.players.map(setting => playerIdArr.push({ id: setting.id, name: setting.name }));
 
 const initialState = {
   cells: [
@@ -26,7 +26,7 @@ const playerReducer = (state = {}, action) => {
     case types.MARK_CELL:
       return { ...state, isActive: !state.isActive };
     case types.ADD_PLAYERS:
-        return { ...state, playerId: action.payload.playerNewId, playerName: action.payload.name };
+      return { ...state, playerId: action.payload.playerNewId, playerName: action.payload.name };
     default:
       return state;
   }
@@ -36,15 +36,15 @@ const cellMarker = (state = {}, action) => {
   switch (action.type) {
     case types.MARK_CELL:
       if (state.cellid === action.payload && state.cellValue === '') {
-        return { ...state, cellValue: action.activeGameMarker }
+        return { ...state, cellValue: action.activeGameMarker };
       }
-    return state;
+      return state;
     default:
       return state;
   }
 };
 
-export default function(state = initialState, action){
+export default function(state = initialState, action) {
   switch (action.type) {
     case types.MARK_CELL: {
       let activeGameMarker = '';
@@ -64,23 +64,24 @@ export default function(state = initialState, action){
     case types.ADD_PLAYERS: {
       const settingsNewState = settings(undefined, {});
       const playerNewIdArr = [];
-      settingsNewState.players.map( setting => playerNewIdArr.push({id: setting.id,name:setting.name}));
-      const newstate = { ...state, 
-        players : state.players.map( player => {
-          if( player.playerId === playerIdArr[0].id ){
+      settingsNewState.players.map(setting => playerNewIdArr.push({ id: setting.id, name: setting.name }));
+      const newstate = {
+        ...state,
+        players: state.players.map(player => {
+          if (player.playerId === playerIdArr[0].id) {
             action.payload.playerNewId = playerNewIdArr[0].id;
             action.payload.name = playerNewIdArr[0].name;
-          }else{
+          } else {
             action.payload.playerNewId = playerNewIdArr[1].id;
             action.payload.name = playerNewIdArr[1].name;
           }
           return playerReducer(player, action);
-        })
-      }
+        }),
+      };
       return newstate;
     }
 
     default:
       return state;
   }
-};
+}

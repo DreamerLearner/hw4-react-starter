@@ -5,7 +5,7 @@ const types = {
   DELETE_TODO: 'DELETE_TODO',
   MARK_CELL: 'MARK_CELL',
   LOOKUP: 'LOOKUP',
-  LOOKUP_SUCCESS: 'LOOKUP_SUCCESS',
+  LOOKUP_SUCCESS: 'LOOKUP_SUCCESS'
 };
 
 export default types;

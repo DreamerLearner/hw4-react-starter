@@ -1,9 +1,7 @@
 import React, { PureComponent } from 'react';
 
 class Player extends PureComponent {
-
-  render(){
-
+  render() {
     if (!this.props.data) {
       return <p>Loading Player...</p>;
     }
@@ -16,7 +14,6 @@ class Player extends PureComponent {
     activePlayerTxt = `${activePlayer.playerName}'s turn`;
 
     return <p>{activePlayerTxt}</p>;
-    
   }
 }
 
